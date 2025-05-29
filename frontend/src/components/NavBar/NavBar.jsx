@@ -2,9 +2,7 @@ import { NavLink } from "react-router";
 
 function NavBar() {
     return (
-        <nav><section>
-        <h1>Login</h1>
-    </section>
+        <nav className="flex gap-20 items-center">
             <NavLink to="/" end>Início</NavLink>
             <NavLink to="/About" end>Sobre</NavLink>
             <NavLink to="/Donations">Doações!</NavLink>

@@ -1,10 +1,11 @@
 import Header from "../components/header/header"
+import Footer from "../components/Footer/Footer"
 
 function Home() {
-    return <section>
-        <h1>tetse</h1>
+    return <>
         <Header />
-    </section>
+        {/* <Footer /> */}
+    </>
 }
 
 export default Home
