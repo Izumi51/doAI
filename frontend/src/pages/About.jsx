@@ -1,7 +1,13 @@
+import Header from "../components/Header/Header.jsx"
+import Footer from "../components/Footer/Footer.jsx"
+
 function About() {
-    return <section>
-        <h1>About</h1>
-    </section>
+    return (
+        <>
+            <Header />
+            <Footer />
+        </>
+    )
 }
 
 export default About

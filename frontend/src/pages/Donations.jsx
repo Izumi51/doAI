@@ -1,7 +1,13 @@
+import Header from "../components/Header/Header.jsx"
+import Footer from "../components/Footer/Footer.jsx"
+
 function Donations() {
-    return <section>
-        <h1>Donations</h1>
-    </section>
+    return (
+        <>
+            <Header />
+            <Footer />
+        </>
+    )
 }
 
 export default Donations

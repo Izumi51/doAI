@@ -1,11 +1,13 @@
-import Header from "../components/header/header"
-import Footer from "../components/Footer/Footer"
+import Header from "../components/Header/Header.jsx"
+import Footer from "../components/Footer/Footer.jsx"
 
 function Home() {
-    return <>
-        <Header />
-        {/* <Footer /> */}
-    </>
+    return (
+        <>
+            <Header />
+            <Footer />
+        </>
+    )
 }
 
 export default Home

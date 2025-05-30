@@ -11,7 +11,6 @@ import Donations from './pages/Donations.jsx'
 import Login from './pages/Login.jsx' 
 import Donate from './pages/Donate.jsx'
 import About from './pages/About.jsx'
-import Test from '../testingThings/Teste.jsx'
 
 const root = document.getElementById('root')
 
@@ -39,11 +38,6 @@ const router = createBrowserRouter([
     {
         path: "/about",
         element: <About />
-    },
-
-    {
-        path: "/test",
-        element: <Test />
     }
 ])
 
