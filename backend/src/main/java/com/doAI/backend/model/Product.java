@@ -7,8 +7,8 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.UUID;
 
-@Table(name = "product")
-@Entity(name = "product")
+@Table(name = "products")
+@Entity(name = "products")
 @Getter
 @Setter
 @NoArgsConstructor
