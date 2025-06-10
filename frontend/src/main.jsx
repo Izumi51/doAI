@@ -11,6 +11,7 @@ import Donations from './pages/Donations.jsx'
 import Login from './pages/Login.jsx' 
 import Donate from './pages/Donate.jsx'
 import About from './pages/About.jsx'
+import Register from './pages/Register.jsx'
 
 const root = document.getElementById('root')
 
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
     {
         path: "/login",
         element: <Login />
+    },
+
+    {
+        path:"/register",
+        element: <Register />
     },
 
     {

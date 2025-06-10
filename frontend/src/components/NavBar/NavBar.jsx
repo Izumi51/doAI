@@ -8,27 +8,31 @@ function navLinkClass(isActive) {
 
 function NavBar() {
     return (
-        <nav className="flex gap-20 items-center">
-            <div className="has-checked:bg-indigo-50 active:border-blue-700 h-full flex items-center hover:border-b-2 hover:border-blue-700">
+        <nav className="flex gap-15 items-center">
+            <div className="h-full flex items-center group relative p-2">
                 <NavLink to="/" end className={({ isActive }) => navLinkClass(isActive)}>Início</NavLink>
+                <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span>
             </div>
             
-            <div className="h-full flex items-center hover:border-b-2 hover:border-blue-700">
+            <div className="h-full flex items-center group relative p-2">
                 <NavLink to="/About" end className={({ isActive }) => navLinkClass(isActive)}>Sobre</NavLink>
+                <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span>
             </div>
             
-            <div className="h-full flex items-center hover:border-b-2 hover:border-blue-700">
+            <div className="h-full flex items-center group relative p-2">
                 <NavLink to="/Donations" className={({ isActive }) => navLinkClass(isActive)}>Doações!</NavLink>
+                <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span>
             </div>
             
-            <div className="h-full flex items-center hover:border-b-2 hover:border-blue-700">
+            <div className="h-full flex items-center group relative p-2">
                 <NavLink to="/Donate" className={({ isActive }) => navLinkClass(isActive)}>Doe!</NavLink>
+                <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span>
             </div>
             
-            <div className="h-full flex items-center hover:border-b-2 hover:border-blue-700">
+            <div className="h-full flex items-center group relative p-2">
                 <NavLink to="/Login" className={({ isActive }) => navLinkClass(isActive)}>Login</NavLink>
+                <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span>
             </div>
-            
         </nav>
     );
 }

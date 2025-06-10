@@ -1,16 +1,16 @@
-import Logo from '../../assets/doAi-removebg-preview.png'
+import Logo from '../../assets/doAi.png'
 import NavBar from '../NavBar/NavBar.jsx'
 
 function Header() {
     return (
-        <header className="flex justify-around border-b-1 border-zinc-700">
+        <header className="flex justify-around "> {/*border-b-1 border-zinc-700 */}
             <section className="flex items-center-safe">
-                <img src={Logo} alt="Logo do doAi!" className="size-20"/> 
+                <img src={Logo} alt="Logo do doAi!" className="size-15"/> 
                 <span className="text-2xl">doAi!</span>
             </section>
 
             <NavBar />
-        </header>
+        </header> 
     )
 }
 
