@@ -6,6 +6,10 @@ function navLinkClass(isActive) {
     : "text-gray-950 hover:text-blue-700";
 }
 
+function navLinkClassLogin() {
+  return "p-1 pl-5 pr-5 text-white font-normal rounded-2xl hover:text-blue-700 bg-blue-700 border-1 hover:bg-white hover:border-1 border-blue-700 transition-all duration-300";
+}
+
 function NavBar() {
     return (
         <nav className="flex gap-15 items-center">
@@ -29,9 +33,9 @@ function NavBar() {
                 <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span>
             </div>
             
-            <div className="h-full flex items-center group relative p-2">
-                <NavLink to="/Login" className={({ isActive }) => navLinkClass(isActive)}>Login</NavLink>
-                <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span>
+            <div className="h-fit flex items-center group relative p-2 ">
+                <NavLink to="/Login" className={() => navLinkClassLogin()}>Entrar</NavLink>
+                {/* <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span> */}
             </div>
         </nav>
     );
