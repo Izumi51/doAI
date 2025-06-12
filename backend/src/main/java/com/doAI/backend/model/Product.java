@@ -3,7 +3,6 @@ package com.doAI.backend.model;
 import com.doAI.backend.dto.ProductRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.BeanUtils;
 
 import java.util.UUID;
 
@@ -25,16 +24,27 @@ public class Product {
     @Column(nullable = false)
     private String description;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String condition;
+    private ConditionEnum condition;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CategoryEnum category;
 
     @Column(nullable = false)
     private String image;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "location_id", nullable = false)
+    private ProductLocation location;
 
     public Product(ProductRequestDTO data) {
         this.description = data.description();
         this.condition = data.condition();
         this.image = data.image();
         this.name = data.name();
+        this.category = data.category();
+        this.location = new ProductLocation(null, data.location().longitude(), data.location().latitude());
     }
 }
