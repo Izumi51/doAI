@@ -19,11 +19,6 @@ function NavBar() {
             </div>
             
             <div className="h-full flex items-center group relative p-2">
-                <NavLink to="/About" end className={({ isActive }) => navLinkClass(isActive)}>Sobre</NavLink>
-                <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span>
-            </div>
-            
-            <div className="h-full flex items-center group relative p-2">
                 <NavLink to="/Donations" className={({ isActive }) => navLinkClass(isActive)}>Doações!</NavLink>
                 <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span>
             </div>
@@ -35,7 +30,6 @@ function NavBar() {
             
             <div className="h-fit flex items-center group relative p-2 ">
                 <NavLink to="/Login" className={() => navLinkClassLogin()}>Entrar</NavLink>
-                {/* <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span> */}
             </div>
         </nav>
     );

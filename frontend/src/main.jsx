@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client'
 import AuthProvider from './auth/AuthProvider.jsx'
 import { 
     createBrowserRouter, 
-    RouterProvider 
+    RouterProvider,
+    ScrollRestoration 
 } from 'react-router'
 
 // Pages
@@ -11,40 +12,40 @@ import Home from './pages/Home.jsx'
 import Donations from './pages/Donations.jsx'
 import Login from './pages/Login.jsx' 
 import Donate from './pages/Donate.jsx'
-import About from './pages/About.jsx'
 import Register from './pages/Register.jsx'
+import NotFound from './pages/NotFound.jsx'
+import Don from '../tetse/Don.jsx'
 
 const root = document.getElementById('root')
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Home />
+        element: (<> <ScrollRestoration /> <Home /> </>)
     },
 
     {
         path: "/login",
-        element: <Login />
+        element: (<> <ScrollRestoration /> <Login /> </>)
     },
 
     {
         path:"/register",
-        element: <Register />
+        element: (<> <ScrollRestoration /> <Register /> </>)
     },
 
     {
         path: "/donations",
-        element: <Donations />
+        element: (<> <ScrollRestoration /> <Donations /> </>)
     },
 
     {
         path: "/donate",
-        element: <Donate />
-    },
-
-    {
-        path: "/about",
-        element: <About />
+        element: (<> <ScrollRestoration /> <Donate /> </>)
+    }, 
+    { /* Not Found */
+        path: "*", 
+        element: (<> <ScrollRestoration /> <NotFound /> </>)
     }
 ])
 
@@ -53,5 +54,5 @@ createRoot(root).render(
         <AuthProvider>
             <RouterProvider router={ router } />
         </AuthProvider>
-    </StrictMode>,
+    </StrictMode>
 )
