@@ -2,6 +2,7 @@ function FilterButton({ onClick, name, active }) {
     return(<>
         <button
             onClick={onClick}
+            aria-pressed={active}
             className={`px-4 py-2 rounded-lg transition ${
                 active
                 ? "bg-[#123acc] text-white" 

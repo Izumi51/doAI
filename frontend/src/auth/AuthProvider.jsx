@@ -12,10 +12,15 @@ const AuthProvider = ({ children }) => {
             const { token, name } = response.data;
 
             localStorage.setItem('token', token);
+            localStorage.setItem('userName', name);
             setToken(token);
-            return true;
+            return { success: true }
         }catch (error) {
-            return false;
+            
+            return {
+                success: false, 
+                message: error.response?.data?.message || 'Erro ao fazer login' 
+            }
         }
     };
 
@@ -34,6 +39,7 @@ const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userName');
         setToken(null);
     };
 

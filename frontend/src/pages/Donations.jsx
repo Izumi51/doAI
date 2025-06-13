@@ -1,44 +1,96 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from 'react';
 import Header from "../components/Header/Header.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import FilterButton from "../components/Buttons/FilterButton.jsx";
 import ProductCard from "../components/Cards/ProductCard.jsx";
-
-// temp data
-const allProducts = [
-    { id: 1, category: "eletronic", name: "Fone de ouvido", description: "Fone Bluetooth com cancelamento de ruído", location: "São Paulo, SP" },
-    { id: 2, category: "clothing", name: "Camisa Social", description: "Camisa social masculina tamanho M", location: "Rio de Janeiro, RJ" },
-    { id: 3, category: "toys", name: "Carrinho de Controle", description: "Carrinho de controle remoto para crianças", location: "Belo Horizonte, MG" },
-    { id: 4, category: "eletronic", name: "Smartphone", description: "Smartphone usado em bom estado", location: "Curitiba, PR" },
-    { id: 5, category: "clothing", name: "Calça Jeans", description: "Calça jeans feminina tamanho 38", location: "Porto Alegre, RS" },
-    { id: 6, category: "toys", name: "Quebra-Cabeça", description: "Quebra-cabeça 500 peças", location: "Salvador, BA" },
-];
+import { getAllProducts } from '../api/productAPI';
+import AuthContext from '../auth/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function Donations() {
-    const [activeFilter, setActiveFilter] = useState("");
-    const [filteredProducts, setFilteredProducts] = useState(allProducts);
+    const [activeFilter, setActiveFilter] = useState("todos");
+    const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const { isAuthenticated } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    // Obter categorias únicas dos produtos
+    const categories = ["todos", ...new Set(
+        products.map(product => product.category.toLowerCase())
+    )].filter(cat => cat);
 
     useEffect(() => {
-        setFilteredProducts(allProducts);
+        const fetchProducts = async () => {
+            try {
+                const data = await getAllProducts();
+                setProducts(data);
+                setFilteredProducts(data); // Mostrar todos os produtos inicialmente
+            } catch (err) {
+                setError(err.message || 'Erro ao carregar produtos');
+                console.error('Erro:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
     }, []);
 
     const handleFilterClick = (filterName) => {
         setActiveFilter(filterName);
         
         if(filterName === "todos") {
-            setFilteredProducts(allProducts);
-        }else {
-            setFilteredProducts(allProducts.filter(p => p.category === filterName));
+            setFilteredProducts(products);
+        } else {
+            setFilteredProducts(
+                products.filter(p => 
+                    p.category.toLowerCase() === filterName.toLowerCase()
+                )
+            );
         }
     };
 
-    const categories = ["todos", ...new Set(allProducts.map(product => product.category))];
+    const handleProductClick = (id) => {
+        navigate(`/products/${id}`);
+    };
+
+    if (loading) {
+        return (
+            <>
+                <Header />
+                <div className="text-center py-20">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+                    <p className="mt-4 text-gray-600">Carregando produtos...</p>
+                </div>
+                <Footer />
+            </>
+        );
+    }
+
+    if (error) {
+        return (
+            <>
+                <Header />
+                <div className="text-center py-20">
+                    <div className="text-red-500 text-xl font-medium">{error}</div>
+                    <button 
+                        onClick={() => window.location.reload()}
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                        Tentar novamente
+                    </button>
+                </div>
+                <Footer />
+            </>
+        );
+    }
 
     return (
         <>
             <Header />
             <main className="px-4 py-8 max-w-[80%] mx-auto">
-                
                 {/* Title */}
                 <h1 className="text-4xl font-bold text-[#1447e6] mt-8 mb-2">Doações Disponíveis</h1>
                 
@@ -51,7 +103,11 @@ function Donations() {
                         <FilterButton 
                             key={category}
                             onClick={() => handleFilterClick(category)}
-                            name={category === "todos" ? "Todos" : category.charAt(0).toUpperCase() + category.slice(1)}
+                            name={
+                                category === "todos" 
+                                    ? "Todos" 
+                                    : category.charAt(0).toUpperCase() + category.slice(1)
+                            }
                             active={activeFilter === category}
                         />
                     ))}
@@ -60,7 +116,11 @@ function Donations() {
                 {/* Cards */}
                 <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {filteredProducts.map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard 
+                            key={product.idProduct}
+                            product={product}
+                            onClick={() => handleProductClick(product.idProduct)}
+                        />
                     ))}
 
                     {filteredProducts.length === 0 && (

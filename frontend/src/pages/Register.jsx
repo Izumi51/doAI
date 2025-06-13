@@ -142,7 +142,7 @@ function Register() {
         return true;
     }
     
-    // TODO forgot password
+    // TODO: forgot password
     /*
         function handleClickOpen() {
             // Handle forgot password click

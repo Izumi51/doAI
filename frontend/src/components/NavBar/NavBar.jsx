@@ -1,4 +1,7 @@
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../../auth/AuthContext.jsx"
+import UserMenu from "../User/UserMenu";
 
 function navLinkClass(isActive) {
   return isActive
@@ -11,6 +14,8 @@ function navLinkClassLogin() {
 }
 
 function NavBar() {
+    const { isAuthenticated, logout, user } = useContext(AuthContext);
+
     return (
         <nav className="flex gap-15 items-center">
             <div className="h-full flex items-center group relative p-2">
@@ -28,11 +33,17 @@ function NavBar() {
                 <span className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-full"></span>
             </div>
             
-            <div className="h-fit flex items-center group relative p-2 ">
-                <NavLink to="/Login" className={() => navLinkClassLogin()}>Entrar</NavLink>
+            <div className="h-fit flex items-center group relative p-2">
+                {isAuthenticated ? (
+                    <UserMenu user={user} logout={logout} />
+                ) : (
+                    <NavLink to="/Login" className={() => navLinkClassLogin()}>
+                        Entrar
+                    </NavLink>
+                )}
             </div>
         </nav>
     );
 }
 
-export default NavBar
+export default NavBar;

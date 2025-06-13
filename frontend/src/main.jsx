@@ -14,7 +14,7 @@ import Login from './pages/Login.jsx'
 import Donate from './pages/Donate.jsx'
 import Register from './pages/Register.jsx'
 import NotFound from './pages/NotFound.jsx'
-import Don from '../tetse/Don.jsx'
+import ProductDetails from './components/ProductDetails/ProductDetails.jsx'
 
 const root = document.getElementById('root')
 
@@ -43,6 +43,12 @@ const router = createBrowserRouter([
         path: "/donate",
         element: (<> <ScrollRestoration /> <Donate /> </>)
     }, 
+
+    {
+        path: "/products/:id",
+        element: <ProductDetails />
+    },
+
     { /* Not Found */
         path: "*", 
         element: (<> <ScrollRestoration /> <NotFound /> </>)

@@ -7,6 +7,7 @@ import com.doAI.backend.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +24,12 @@ public class ProductService {
                 .stream()
                 .map(ProductResponseDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    public ProductResponseDTO getProductById(UUID id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        return new ProductResponseDTO(product);
     }
 
     public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
