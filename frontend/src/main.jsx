@@ -14,7 +14,8 @@ import Login from './pages/Login.jsx'
 import Donate from './pages/Donate.jsx'
 import Register from './pages/Register.jsx'
 import NotFound from './pages/NotFound.jsx'
-import ProductDetails from './components/ProductDetails/ProductDetails.jsx'
+import ProductDetails from './components/Product/ProductDetails.jsx'
+import ProductsProvider from './products/ProductsProvider.jsx'
 
 const root = document.getElementById('root')
 
@@ -58,7 +59,9 @@ const router = createBrowserRouter([
 createRoot(root).render(
     <StrictMode>
         <AuthProvider>
-            <RouterProvider router={ router } />
+            <ProductsProvider>
+                <RouterProvider router={ router } />
+            </ProductsProvider>
         </AuthProvider>
     </StrictMode>
 )

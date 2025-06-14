@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { getProductById } from '../../api/productAPI';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
+import ProductsContext from '../../products/ProductsContext';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import { MapPinIcon } from '@heroicons/react/24/outline';
 
 function ProductDetails() {
@@ -11,6 +11,7 @@ function ProductDetails() {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { getProductById } = useContext(ProductsContext);
 
     useEffect(() => {
         const fetchProduct = async () => {

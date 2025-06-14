@@ -3,7 +3,7 @@ import Header from "../components/Header/Header.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import FilterButton from "../components/Buttons/FilterButton.jsx";
 import ProductCard from "../components/Cards/ProductCard.jsx";
-import { getAllProducts } from '../api/productAPI';
+import ProductContext from '../products/ProductsContext.jsx';
 import AuthContext from '../auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,9 +14,9 @@ function Donations() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { isAuthenticated } = useContext(AuthContext);
+    const { getAllProducts } = useContext(ProductContext);
     const navigate = useNavigate();
 
-    // Obter categorias únicas dos produtos
     const categories = ["todos", ...new Set(
         products.map(product => product.category.toLowerCase())
     )].filter(cat => cat);
@@ -25,8 +25,14 @@ function Donations() {
         const fetchProducts = async () => {
             try {
                 const data = await getAllProducts();
-                setProducts(data);
-                setFilteredProducts(data); // Mostrar todos os produtos inicialmente
+                if (data && Array.isArray(data)) {
+                    setProducts(data);
+                    setFilteredProducts(data);
+                } else {
+                    setError('Nenhum produto encontradoo!');
+                    setProducts([]);
+                    setFilteredProducts([]);
+                }
             } catch (err) {
                 setError(err.message || 'Erro ao carregar produtos');
                 console.error('Erro:', err);
@@ -60,7 +66,7 @@ function Donations() {
         return (
             <>
                 <Header />
-                <div className="text-center py-20">
+                <div className="text-center py-20 h-dvh flex items-center justify-center flex-col">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
                     <p className="mt-4 text-gray-600">Carregando produtos...</p>
                 </div>
@@ -73,7 +79,7 @@ function Donations() {
         return (
             <>
                 <Header />
-                <div className="text-center py-20">
+                <div className="text-center py-20 h-dvh flex items-center justify-center flex-col">
                     <div className="text-red-500 text-xl font-medium">{error}</div>
                     <button 
                         onClick={() => window.location.reload()}

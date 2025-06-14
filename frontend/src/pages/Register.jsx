@@ -36,8 +36,8 @@ function Register() {
 
             if(success) {
                 // Auto Login
-                const loginSuccess = await login(email, password);
-                if (loginSuccess) {
+                const loginResult = await login(email, password);
+                if (loginResult.success) {
                     navigate('/');
                 }else {
                     navigate('/login');
@@ -183,7 +183,10 @@ function Register() {
                             required
                             className="px-3 py-2 border border-gray-300 rounded-md hover:border-zinc-600 focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => {
+                                setName(e.target.value);
+                                if(nameError) setNameError('');
+                            }}
                         />
                         {nameError && (
                             <p className="pl-2 font-bold text-xs text-red-500">{nameError}</p>
@@ -202,7 +205,10 @@ function Register() {
                             required
                             className="px-3 py-2 border border-gray-300 rounded-md hover:border-zinc-600 focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                                if(emailError) setEmailError('');
+                            }}
                         />
                             {emailError && (
                             <p className="pl-2 font-bold text-xs text-red-500">{emailError}</p>
@@ -221,7 +227,10 @@ function Register() {
                             required
                             className="px-3 py-2 border border-gray-300 rounded-md hover:border-zinc-600 focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                if(passwordError) setPasswordError('');
+                            }}
                         />
                         {passwordError && (
                             <p className="pl-2 font-bold text-xs text-red-500">{passwordError}</p>
@@ -240,7 +249,10 @@ function Register() {
                             required
                             className="px-3 py-2 border border-gray-300 rounded-md hover:border-zinc-600 focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            onChange={(e) => {
+                                setConfirmPassword(e.target.value);
+                                if(confirmPasswordError) setConfirmPasswordError('');
+                            }}
                         />
                         {confirmPasswordError && (
                             <p className="pl-2 font-bold text-xs text-red-500">{confirmPasswordError}</p>
