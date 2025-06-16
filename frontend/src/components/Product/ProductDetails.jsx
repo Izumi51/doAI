@@ -20,7 +20,6 @@ function ProductDetails() {
                 setProduct(data);
             } catch (error) {
                 setError('Failed to load product details');
-                console.error('Error:', error);
             } finally {
                 setLoading(false);
             }

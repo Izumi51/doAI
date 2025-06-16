@@ -3,15 +3,15 @@ import { FaHeart, FaHandHoldingHeart, FaEnvelope, FaFacebook, FaInstagram, FaTwi
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-[#333333] text-[#f8f9fa] py-8 px-4 mt-12">
-        <section className="max-w-4/5 mx-auto grid grid-cols-1 md:grid-cols-3 gap-auto">
+    <footer className="w-full bg-[#333333] text-[#f8f9fa] py-6 lg:py-8 px-4 mt-8 lg:mt-12">
+        <section className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
 
             {/* Sobre */}
-            <section className="space-y-4 mb-10 md:mb-0">
-                <h3 className="text-xl font-bold flex items-center gap-2">
+            <section className="space-y-4 mb-6 lg:mb-0">
+                <h3 className="text-lg lg:text-xl font-bold flex items-center gap-2">
                     <FaHandHoldingHeart className="text-[#619afc]" /> doAi! 
                 </h3>
-                <p className="text-gray-300 pr-10">
+                <p className="text-gray-300 text-sm lg:text-base">
                     Conectando quem quer ajudar com quem precisa de forma eficiente e transparente.
                 </p>
                 <section className="flex gap-4">
@@ -28,9 +28,9 @@ const Footer = () => {
             </section>
 
             {/* Links Rápidos */}
-            <section className="mb-10 md:mb-0">
+            <section className="mb-6 lg:mb-0">
                 <h4 className="text-lg font-semibold mb-4">Links Rápidos</h4>
-                <ul className="space-y-2">
+                <ul className="space-y-2 text-sm lg:text-base">
                     <li>
                         <Link to="/" className="text-gray-300 hover:text-[#619afc] transition">Home</Link>
                     </li>
@@ -47,11 +47,12 @@ const Footer = () => {
             </section>
 
             {/* Contato */}
-            <section className="mb-10 md:mb-0">
+            <section className="mb-6 lg:mb-0">
                 <h4 className="text-lg font-semibold mb-4">Contato</h4>
-                <ul className="space-y-2">
+                <ul className="space-y-2 text-sm lg:text-base">
                     <li className="flex items-center gap-2 text-gray-300">
-                        <FaEnvelope /> doAi@gmail.com
+                        <FaEnvelope className="flex-shrink-0" /> 
+                        <span className="break-all">doAi@gmail.com</span>
                     </li>
                     <li className="text-gray-300">
                         Seg-Sex: 9:00 - 18:00

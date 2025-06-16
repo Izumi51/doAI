@@ -34,8 +34,7 @@ function Donations() {
                     setFilteredProducts([]);
                 }
             } catch (err) {
-                setError(err.message || 'Erro ao carregar produtos');
-                console.error('Erro:', err);
+                setError('Erro ao carregar os produtos');
             } finally {
                 setLoading(false);
             }
@@ -96,15 +95,15 @@ function Donations() {
     return (
         <>
             <Header />
-            <main className="px-4 py-8 max-w-[80%] mx-auto">
+            <main className="px-4 lg:px-8 py-6 lg:py-8 max-w-[95%] lg:max-w-[80%] mx-auto">
                 {/* Title */}
-                <h1 className="text-4xl font-bold text-[#1447e6] mt-8 mb-2">Doações Disponíveis</h1>
+                <h1 className="text-2xl lg:text-4xl font-bold text-[#1447e6] mt-4 lg:mt-8 mb-2 text-center lg:text-left">Doações Disponíveis</h1>
                 
                 {/* Text */}
-                <p className="text-gray-700 ml-5 mb-10">Veja os produtos que estão sendo doados!</p>
+                <p className="text-gray-700 lg:ml-5 mb-6 lg:mb-10 text-center lg:text-left">Veja os produtos que estão sendo doados!</p>
 
                 {/* Filters */}
-                <section className="flex justify-start gap-4 mb-8 flex-wrap">
+                <section className="flex justify-center lg:justify-start gap-3 lg:gap-4 mb-6 lg:mb-8 flex-wrap">
                     {categories.map(category => (
                         <FilterButton 
                             key={category}
@@ -120,7 +119,7 @@ function Donations() {
                 </section>
 
                 {/* Cards */}
-                <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
                     {filteredProducts.map((product) => (
                         <ProductCard 
                             key={product.idProduct}

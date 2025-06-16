@@ -10,31 +10,31 @@ function Home() {
     return (<>
         <Header />
 
-        {/* Tittle */}
-        <h1 className="my-[50px] pl-[12%] text-4xl font-light">Transformando Doações</h1>
+        {/* Title */}
+        <h1 className="my-8 lg:my-[50px] px-4 lg:pl-[12%] text-2xl lg:text-4xl font-light text-center lg:text-left">Transformando Doações</h1>
 
         {/* About */}
-        <section className=" bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-[15%] py-10 flex justify-around shadow-2xl">
-            <div className="w-1/2">
-                <h3 className="text-white text-3xl font-light italic mb-6">Nosso projeto tem um propósito:</h3>
-                <p className="text-zinc-100 pl-2 text-lg leading-relaxed font-light first-letter:text-5xl first-letter:font-light first-letter:float-left first-letter:mr-2 first-letter:leading-none">
+        <section className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-4 lg:px-[15%] py-8 lg:py-10 flex flex-col lg:flex-row justify-around items-center gap-6 lg:gap-0 shadow-2xl">
+            <div className="w-full lg:w-1/2">
+                <h3 className="text-white text-xl lg:text-3xl font-light italic mb-4 lg:mb-6 text-center lg:text-left">Nosso projeto tem um propósito:</h3>
+                <p className="text-zinc-100 px-2 lg:pl-2 text-base lg:text-lg leading-relaxed font-light text-justify lg:first-letter:text-5xl lg:first-letter:font-light lg:first-letter:float-left lg:first-letter:mr-2 lg:first-letter:leading-none">
                     Transformar o ato de doar. Criamos uma 
                     plataforma unificada para simplificar e otimizar o processo de doações, 
                     conectando quem quer ajudar com quem precisa de forma eficiente e transparente.
                 </p>
             </div>
-            <img src={ImageAbout} alt="imagem de ilustração" className="max-w-2/5 rounded-[5px] shadow-lg"/>
-        </section>  
+            <img src={ImageAbout} alt="imagem de ilustração" className="w-full max-w-sm lg:max-w-2/5 rounded-[5px] shadow-lg"/>
+        </section>
 
         {/* Cards */}
-        <section className="mx-[10%] mt-15">
-            <h1 className="text-zinc-600 text-3xl font-light italic mb-6">O que nos move?</h1>
-            <p className="text-black px-10 text-lg leading-relaxed font-normal mb-6">
+        <section className="mx-4 lg:mx-[10%] mt-8 lg:mt-15">
+            <h1 className="text-zinc-600 text-xl lg:text-3xl font-light italic mb-4 lg:mb-6 text-center lg:text-left">O que nos move?</h1>
+            <p className="text-black px-4 lg:px-10 text-base lg:text-lg leading-relaxed font-normal mb-6 text-justify">
                 Sabemos que doar faz a diferença, mas muitas vezes, encontrar o lugar certo ou o 
                 item necessário pode ser um desafio. Pensando nisso, desenvolvemos um sistema 
                 intuitivo que permite a você:
             </p>
-            <section className="px-10 grid grid-1 md:grid-cols-3 gap-10">
+            <section className="px-4 lg:px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10">
                 <AboutCard 
                     title={"Encontrar localidades para doação:"} 
                     content={"Descubra pontos de coleta próximos a você, como abrigos, ONGs e centros comunitários, facilitando a entrega das suas doações."}

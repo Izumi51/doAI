@@ -13,7 +13,6 @@ const ProductsProvider = ({ children }) => {
             setProducts(response.data);
             return response.data;
         } catch(error) {
-            console.error('Error fetching products:', error);
             throw error;
         }
     };
@@ -23,27 +22,20 @@ const ProductsProvider = ({ children }) => {
             const response = await api.get(`/products/${id}`);
             return response.data;
         } catch(error) {
-            console.error('Error fetching product:', error);
             throw error;
         }
     };
 
     const createProduct = async (productData) => {
-        console.log('CreateProduct called - isAuthenticated:', isAuthenticated);
         
         if (!isAuthenticated) {
-            console.error('Authentication check failed in createProduct');
             throw new Error('Authentication required to create a product');
         }
 
         try {
-            console.log('Making API call to create product:', productData);
             const response = await api.post('/products', productData);
-            console.log('Product created successfully:', response.data);
             return response.data;
         } catch(error) {
-            console.error('Error creating product:', error);
-            console.error('Error response:', error.response);
             throw error;
         }
     };
@@ -57,7 +49,6 @@ const ProductsProvider = ({ children }) => {
             const response = await api.put(`/products/${id}`, productData);
             return response.data;
         } catch(error) {
-            console.error('Error updating product:', error);
             throw error;
         }
     };
@@ -70,7 +61,6 @@ const ProductsProvider = ({ children }) => {
         try {
             await api.delete(`/products/${id}`);
         } catch(error) {
-            console.error('Error deleting product:', error);
             throw error;
         }
     };

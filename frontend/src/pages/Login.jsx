@@ -96,8 +96,8 @@ function Login() {
 
     return (<>
         <div className="absolute inset-x-0 top-0 left-0 w-full h-30 bg-gradient-to-b from-blue-400 to-gray-50 blur-2xl opacity-50 -z-1" />    
-        <main className="grid place-items-center w-screen h-screen">
-            <section className="p-5 w-[380px] border border-gray-300 rounded-lg shadow-xl bg-white">
+        <main className="grid place-items-center w-screen h-screen px-4">
+            <section className="p-5 w-full max-w-[380px] border border-gray-300 rounded-lg shadow-xl bg-white">
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2 mb-2">
                     <img src={Logo} alt="Logo do doAi!" className="size-15" />  

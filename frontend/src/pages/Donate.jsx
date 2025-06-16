@@ -80,7 +80,6 @@ function Donate() {
             setTimeout(() => navigate('/donations'), 2000);
         } catch (err) {
             setError(err.message || 'Erro ao criar doação. Tente novamente mais tarde.');
-            console.error('Error:', err);
         } finally {
             setLoading(false);
         }
@@ -88,15 +87,15 @@ function Donate() {
 
     return (<>
         <Header />
-        <main className="container mx-auto px-4 py-8 max-w-4xl">
-            <div className="flex items-center mb-6">
+        <main className="container mx-auto px-4 py-6 lg:py-8 max-w-5xl">
+            <div className="flex items-center mb-4 lg:mb-6">
                 <button 
                     onClick={() => navigate(-1)}
-                    className="mr-4 p-2 rounded-full hover:bg-gray-100"
+                    className="mr-3 lg:mr-4 p-2 rounded-full hover:bg-gray-100"
                 >
-                    <ArrowLeftIcon className="size-8 text[#333333] hover:text-[#619afc]" />
+                    <ArrowLeftIcon className="w-6 h-6 lg:w-8 lg:h-8 text-[#333333] hover:text-[#619afc]" />
                 </button>
-                <h1 className="text-3xl font-bold text-[#1447e6]">Doar Produto</h1>
+                <h1 className="text-xl lg:text-3xl font-bold text-[#1447e6]">Doar Produto</h1>
             </div>
             
             {success ? (
@@ -104,14 +103,14 @@ function Donate() {
                     <p>Doação criada com sucesso! Redirecionando...</p>
                 </div>
             ) : (
-                <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-6">
+                <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-4 lg:p-6">
                     {error && (
                         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                             {error}
                         </div>
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                         {/* Left Column */}
                         <div>
                             {/* Name */}
