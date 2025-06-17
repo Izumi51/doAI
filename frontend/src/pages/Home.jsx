@@ -23,7 +23,7 @@ function Home() {
                     conectando quem quer ajudar com quem precisa de forma eficiente e transparente.
                 </p>
             </div>
-            <img src={ImageAbout} alt="imagem de ilustração" className="w-full max-w-sm lg:max-w-2/5 rounded-[5px] shadow-lg"/>
+            <img src={ImageAbout} alt="imagem de ilustração" className="w-[80%] max-w-sm lg:max-w-2/5 rounded-[5px] shadow-lg"/>
         </section>
 
         {/* Cards */}

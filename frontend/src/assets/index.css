@@ -9,18 +9,18 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f0f0f0; /* fundo da barra */
+    background: #f0f0f0; /* fundo da barra */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #52525c; /* azul Tailwind (zinc-600) */
-  border-radius: 8px;
-  border: 2px solid #f0f0f0;
+    background-color: #52525c; /* azul Tailwind (zinc-600) */
+    border-radius: 8px;
+    border: 2px solid #f0f0f0;
 }
 
 .loading-spinner {
@@ -39,6 +39,7 @@ body {
 /* Responsive text clamping */
 .line-clamp-2 {
     display: -webkit-box;
+    line-clamp: 3;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -46,6 +47,7 @@ body {
 
 .line-clamp-3 {
     display: -webkit-box;
+    line-clamp: 3;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;

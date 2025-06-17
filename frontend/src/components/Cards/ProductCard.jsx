@@ -1,5 +1,9 @@
 import MapPin from '@heroicons/react/24/outline/MapPinIcon.js'
 
+const handleProductClick = (id) => {
+        navigate(`/products/${id}`);
+    };
+
 function ProductCard({ product, onClick }) {
     return (<>
         <section 
@@ -46,9 +50,7 @@ function ProductCard({ product, onClick }) {
                 {/* Action button */}
                 <button 
                     className="mt-auto w-full bg-gradient-to-r from-[#1447e6] to-[#619afc] text-white py-2 lg:py-3 rounded-lg hover:opacity-90 transition-all text-sm lg:text-base font-medium"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                    }}
+                    onClick={() => handleProductClick(product.idProduct)}
                 >
                     Quero este item
                 </button>

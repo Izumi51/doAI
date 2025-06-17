@@ -27,6 +27,11 @@ function ProductDetails() {
         fetchProduct();
     }, [id]);
 
+    const handleItem = () => {
+        // put in the product
+        console.log("foi");
+    }
+
     if (loading) {
         return (
             <>
@@ -107,13 +112,13 @@ function ProductDetails() {
                             <span className="text-gray-600">{product.category}</span>
                             <div className="flex items-center text-gray-600">
                                 <MapPinIcon className="h-5 w-5 mr-1" />
-                                <span>Location</span>
+                                <span>Localização</span>
                             </div>
                         </div>
 
                         {/* Description */}
                         <div className="mb-8">
-                            <h2 className="text-lg font-semibold mb-2">Description</h2>
+                            <h2 className="text-lg font-semibold mb-2">Descrição</h2>
                             <p className="text-gray-700 whitespace-pre-line">{product.description}</p>
                         </div>
 
@@ -127,9 +132,9 @@ function ProductDetails() {
                             </Link>
                             <button
                                 className="flex-1 bg-gradient-to-r from-blue-600 to-blue-400 text-white py-2 rounded-md hover:opacity-90"
-                                onClick={() => console.log('Item requested:', product.id)}
+                                onClick={handleItem}
                             >
-                                I Want This Item
+                                Quero este item!
                             </button>
                         </div>
                     </div>

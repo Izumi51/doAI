@@ -16,6 +16,7 @@ import Register from './pages/Register.jsx'
 import NotFound from './pages/NotFound.jsx'
 import ProductDetails from './components/Product/ProductDetails.jsx'
 import ProductsProvider from './products/ProductsProvider.jsx'
+import User from './pages/User.jsx'
 
 const root = document.getElementById('root')
 
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
     {
         path: "/products/:id",
         element: <ProductDetails />
+    },
+
+    {
+        path: "/profile",
+        element: <User />
     },
 
     { /* Not Found */

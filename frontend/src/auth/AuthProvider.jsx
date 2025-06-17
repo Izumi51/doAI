@@ -4,6 +4,7 @@ import api from '../api/axios';
 
 const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
+    const [userName, setUserName] = useState(localStorage.getItem('userName'));
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
     
     useEffect(() => {
@@ -11,6 +12,7 @@ const AuthProvider = ({ children }) => {
         if (storedToken) {
             setToken(storedToken);
             setIsAuthenticated(true);
+            setUserName(userName);
         }
     }, []);
 
@@ -18,9 +20,11 @@ const AuthProvider = ({ children }) => {
         try {
             const response = await api.post('/auth/login', { email, password });
             const { token, name } = response.data;
+            
 
             localStorage.setItem('token', token);
             localStorage.setItem('userName', name);
+            set
             setToken(token);
             setIsAuthenticated(true);
             return true;
