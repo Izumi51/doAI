@@ -21,6 +21,27 @@ function Donate() {
         'Esportes'
     ];
 
+    const locationOptions = [
+        { value: 'LISBON', label: 'Lisboa' },
+        { value: 'PORTO', label: 'Porto' },
+        { value: 'BRAGA', label: 'Braga' },
+        { value: 'COIMBRA', label: 'Coimbra' },
+        { value: 'FARO', label: 'Faro' },
+        { value: 'AVEIRO', label: 'Aveiro' },
+        { value: 'SETUBAL', label: 'Setúbal' },
+        { value: 'LEIRIA', label: 'Leiria' },
+        { value: 'SANTAREM', label: 'Santarém' },
+        { value: 'EVORA', label: 'Évora' },
+        { value: 'BEJA', label: 'Beja' },
+        { value: 'VIANA_DO_CASTELO', label: 'Viana do Castelo' },
+        { value: 'VILA_REAL', label: 'Vila Real' },
+        { value: 'BRAGANCA', label: 'Bragança' },
+        { value: 'GUARDA', label: 'Guarda' },
+        { value: 'CASTELO_BRANCO', label: 'Castelo Branco' },
+        { value: 'VISEU', label: 'Viseu' },
+        { value: 'PORTALEGRE', label: 'Portalegre' }
+    ];
+
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -28,8 +49,7 @@ function Donate() {
         category: '',
         image: '', // Agora é uma string (URL ou base64)
         location: {
-            longitude: 0,
-            latitude: 0
+            location: ''
         }
     });
 
@@ -49,12 +69,11 @@ function Donate() {
     };
 
     const handleLocationChange = (e) => {
-        const { name, value } = e.target;
+        const { value } = e.target;
         setFormData(prev => ({
             ...prev,
             location: {
-                ...prev.location,
-                [name]: parseFloat(value) || 0
+                location: value
             }
         }));
     };
@@ -68,7 +87,7 @@ function Donate() {
             return;
         }
 
-        if (!formData.name || !formData.description || !formData.image || !formData.condition || !formData.category) {
+        if (!formData.name || !formData.description || !formData.image || !formData.condition || !formData.category || !formData.location.location) {
             setError('Por favor, preencha todos os campos obrigatórios');
             return;
         }
@@ -218,42 +237,30 @@ function Donate() {
                     <div className="mb-6 bg-gray-50 p-4 rounded-lg">
                         <h3 className="flex items-center text-lg font-semibold text-gray-800 mb-3">
                             <MapPinIcon className="h-5 w-5 mr-2 text-blue-500" />
-                            Localização
+                            Localização *
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="latitude">
-                                    Latitude
-                                </label>
-                                <input
-                                    type="number"
-                                    id="latitude"
-                                    name="latitude"
-                                    value={formData.location.latitude}
-                                    onChange={handleLocationChange}
-                                    step="0.000001"
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="Ex: -23.5505"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="longitude">
-                                    Longitude
-                                </label>
-                                <input
-                                    type="number"
-                                    id="longitude"
-                                    name="longitude"
-                                    value={formData.location.longitude}
-                                    onChange={handleLocationChange}
-                                    step="0.000001"
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="Ex: -46.6333"
-                                />
-                            </div>
+                        <div>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
+                                Selecione a cidade
+                            </label>
+                            <select
+                                id="location"
+                                name="location"
+                                value={formData.location.location}
+                                onChange={handleLocationChange}
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required
+                            >
+                                <option value="">Selecione uma localização</option>
+                                {locationOptions.map(option => (
+                                    <option key={option.value} value={option.value}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <p className="text-xs text-gray-500 mt-2">
-                            Você pode obter as coordenadas no Google Maps clicando com o botão direito em um local no mapa
+                            Selecione a cidade onde o produto está localizado
                         </p>
                     </div>
 

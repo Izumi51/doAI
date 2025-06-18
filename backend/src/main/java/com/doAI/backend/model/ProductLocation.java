@@ -15,9 +15,7 @@ public class ProductLocation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long idLocation;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Long longitude;
-
-    @Column(nullable = false)
-    private Long latitude;
+    private LocationEnum location;
 }

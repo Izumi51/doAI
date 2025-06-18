@@ -9,10 +9,11 @@ const AuthProvider = ({ children }) => {
     
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
+        const storedUserName = localStorage.getItem('userName');
         if (storedToken) {
             setToken(storedToken);
             setIsAuthenticated(true);
-            setUserName(userName);
+            setUserName(storedUserName);
         }
     }, []);
 
@@ -20,16 +21,19 @@ const AuthProvider = ({ children }) => {
         try {
             const response = await api.post('/auth/login', { email, password });
             const { token, name } = response.data;
-            
 
             localStorage.setItem('token', token);
             localStorage.setItem('userName', name);
-            set
             setToken(token);
+            setUserName(name);
             setIsAuthenticated(true);
-            return true;
+            return { success: true };
         }catch (error) {
-            return false;
+            localStorage.removeItem('token');
+            localStorage.removeItem('userName');
+            setToken(null);
+            setIsAuthenticated(false);
+            return { success: false};
         }
     };
 
@@ -41,8 +45,9 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem('token', token);
             localStorage.setItem('userName', userName);
             setToken(token);
+            setUserName(userName);
             setIsAuthenticated(true);
-            return true;
+            return { success: true };
         }catch (error) {
             // Throw error with meaningful message for the UI to catch
             const errorMessage = error.response?.data?.message || 
@@ -60,7 +65,7 @@ const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ token, isAuthenticated, login, logout, register }}>
+        <AuthContext.Provider value={{ token, userName, isAuthenticated, login, logout, register }}>
             {children}
         </AuthContext.Provider>
     );

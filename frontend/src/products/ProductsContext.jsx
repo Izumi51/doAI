@@ -5,6 +5,7 @@ const ProductsContext = createContext({
     getProductById: () => {},
     createProduct: () => {},
     updateProduct: () => {},
+    updateProductState: () => {},
     deleteProduct: () => {},
 });
 

@@ -39,6 +39,7 @@ public class SecurityConfig {
                             .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/products").authenticated()
+                            .requestMatchers(HttpMethod.PUT, "/api/products/*/state").authenticated()
                             .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

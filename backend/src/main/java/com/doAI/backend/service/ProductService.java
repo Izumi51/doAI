@@ -2,8 +2,10 @@ package com.doAI.backend.service;
 
 import com.doAI.backend.dto.ProductRequestDTO;
 import com.doAI.backend.dto.ProductResponseDTO;
+import com.doAI.backend.dto.ProductStateUpdateDTO;
 import com.doAI.backend.model.Product;
 import com.doAI.backend.model.ProductLocation;
+import com.doAI.backend.model.ProductStateEnum;
 import com.doAI.backend.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class ProductService {
     }
 
     public List<ProductResponseDTO> getAllProducts() {
-        return productRepository.findAll()
+        return productRepository.findByState(ProductStateEnum.DISPONIVEL)
                 .stream()
                 .map(ProductResponseDTO::new)
                 .collect(Collectors.toList());
@@ -52,8 +54,18 @@ public class ProductService {
 
         // Update location
         ProductLocation location = existingProduct.getLocation();
-        location.setLongitude(productRequestDTO.location().longitude());
-        location.setLatitude(productRequestDTO.location().latitude());
+        location.setLocation(productRequestDTO.location().location());
+
+        Product updatedProduct = productRepository.save(existingProduct);
+        return new ProductResponseDTO(updatedProduct);
+    }
+
+    public ProductResponseDTO updateProductState(UUID id, ProductStateUpdateDTO stateUpdateDTO) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+
+        // Update only the state
+        existingProduct.setState(stateUpdateDTO.state());
 
         Product updatedProduct = productRepository.save(existingProduct);
         return new ProductResponseDTO(updatedProduct);

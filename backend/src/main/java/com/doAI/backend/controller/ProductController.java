@@ -2,6 +2,7 @@ package com.doAI.backend.controller;
 
 import com.doAI.backend.dto.ProductRequestDTO;
 import com.doAI.backend.dto.ProductResponseDTO;
+import com.doAI.backend.dto.ProductStateUpdateDTO;
 import com.doAI.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,14 @@ public class ProductController {
             @PathVariable UUID id,
             @RequestBody ProductRequestDTO productRequestDTO) {
         ProductResponseDTO updatedProduct = productService.updateProduct(id, productRequestDTO);
+        return ResponseEntity.ok(updatedProduct);
+    }
+
+    @PutMapping("/{id}/state")
+    public ResponseEntity<ProductResponseDTO> updateProductState(
+            @PathVariable UUID id,
+            @RequestBody ProductStateUpdateDTO stateUpdateDTO) {
+        ProductResponseDTO updatedProduct = productService.updateProductState(id, stateUpdateDTO);
         return ResponseEntity.ok(updatedProduct);
     }
 

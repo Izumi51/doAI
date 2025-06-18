@@ -1,10 +1,13 @@
 import MapPin from '@heroicons/react/24/outline/MapPinIcon.js'
+import { useNavigate } from 'react-router-dom';
 
-const handleProductClick = (id) => {
+function ProductCard({ product, onClick }) {
+    const navigate = useNavigate();
+
+    const handleProductClick = (id) => {
         navigate(`/products/${id}`);
     };
 
-function ProductCard({ product, onClick }) {
     return (<>
         <section 
             className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 cursor-pointer flex flex-col h-full transform hover:scale-[1.02]"

@@ -32,6 +32,10 @@ public class Product {
     @Column(nullable = false)
     private CategoryEnum category;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProductStateEnum state;
+
     @Column(nullable = false)
     private String image;
 
@@ -45,6 +49,7 @@ public class Product {
         this.image = data.image();
         this.name = data.name();
         this.category = data.category();
-        this.location = new ProductLocation(null, data.location().longitude(), data.location().latitude());
+        this.state = ProductStateEnum.DISPONIVEL; // Default state
+        this.location = new ProductLocation(null, data.location().location());
     }
 }

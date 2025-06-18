@@ -1,5 +1,7 @@
 package com.doAI.backend.dto;
 
-public record ProductLocationDTO(Long longitude, Long latitude) {
+import com.doAI.backend.model.LocationEnum;
+
+public record ProductLocationDTO(LocationEnum location) {
 }
 

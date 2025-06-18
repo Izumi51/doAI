@@ -53,6 +53,19 @@ const ProductsProvider = ({ children }) => {
         }
     };
 
+    const updateProductState = async (id, state) => {
+        if (!isAuthenticated) {
+            throw new Error('Authentication required to update product state');
+        }
+
+        try {
+            const response = await api.put(`/products/${id}/state`, { state });
+            return response.data;
+        } catch(error) {
+            throw error;
+        }
+    };
+
     const deleteProduct = async (id) => {
         if (!isAuthenticated) {
             throw new Error('Authentication required to delete a product');
@@ -72,6 +85,7 @@ const ProductsProvider = ({ children }) => {
             getProductById,
             createProduct,
             updateProduct,
+            updateProductState,
             deleteProduct
         }}>
             {children}
