@@ -6,8 +6,14 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-    // Skip adding token for public endpoints (only GET requests to products)
-    if(config.url.includes('/products') && config.method.toLowerCase() === 'get') {
+    // Skip adding token only for public product endpoints
+    // Allow auth for user-specific endpoints like /products/created-by/* and /products/processing-by/*
+    const isPublicProductEndpoint = config.url === '/products' || 
+                                   (config.url.startsWith('/products/') && 
+                                    config.url.match(/^\/products\/\d+$/) && 
+                                    config.method.toLowerCase() === 'get');
+    
+    if(isPublicProductEndpoint) {
         return config;
     }
 

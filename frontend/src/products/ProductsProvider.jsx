@@ -26,14 +26,15 @@ const ProductsProvider = ({ children }) => {
         }
     };
 
-    const createProduct = async (productData) => {
+    const createProduct = async (productData, userId) => {
         
         if (!isAuthenticated) {
             throw new Error('Authentication required to create a product');
         }
 
         try {
-            const response = await api.post('/products', productData);
+            const url = userId ? `/products?userId=${userId}` : '/products';
+            const response = await api.post(url, productData);
             return response.data;
         } catch(error) {
             throw error;
@@ -53,13 +54,40 @@ const ProductsProvider = ({ children }) => {
         }
     };
 
-    const updateProductState = async (id, state) => {
+    const updateProductState = async (id, state, userId) => {
         if (!isAuthenticated) {
             throw new Error('Authentication required to update product state');
         }
 
         try {
-            const response = await api.put(`/products/${id}/state`, { state });
+            const url = userId ? `/products/${id}/state?userId=${userId}` : `/products/${id}/state`;
+            const response = await api.put(url, { state });
+            return response.data;
+        } catch(error) {
+            throw error;
+        }
+    };
+
+    const getProductsCreatedByUser = async (userId) => {
+        if (!isAuthenticated) {
+            throw new Error('Authentication required to get user products');
+        }
+
+        try {
+            const response = await api.get(`/products/created-by/${userId}`);
+            return response.data;
+        } catch(error) {
+            throw error;
+        }
+    };
+
+    const getProductsByProcessingUser = async (userId) => {
+        if (!isAuthenticated) {
+            throw new Error('Authentication required to get processing products');
+        }
+
+        try {
+            const response = await api.get(`/products/processing-by/${userId}`);
             return response.data;
         } catch(error) {
             throw error;
@@ -83,6 +111,8 @@ const ProductsProvider = ({ children }) => {
             products,
             getAllProducts,
             getProductById,
+            getProductsCreatedByUser,
+            getProductsByProcessingUser,
             createProduct,
             updateProduct,
             updateProductState,

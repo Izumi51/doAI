@@ -18,28 +18,16 @@ function Donate() {
         'Brinquedos',
         'Roupas',
         'Livros',
+        'Móveis',
         'Esportes'
     ];
 
     const locationOptions = [
-        { value: 'LISBON', label: 'Lisboa' },
-        { value: 'PORTO', label: 'Porto' },
-        { value: 'BRAGA', label: 'Braga' },
-        { value: 'COIMBRA', label: 'Coimbra' },
-        { value: 'FARO', label: 'Faro' },
-        { value: 'AVEIRO', label: 'Aveiro' },
-        { value: 'SETUBAL', label: 'Setúbal' },
-        { value: 'LEIRIA', label: 'Leiria' },
-        { value: 'SANTAREM', label: 'Santarém' },
-        { value: 'EVORA', label: 'Évora' },
-        { value: 'BEJA', label: 'Beja' },
-        { value: 'VIANA_DO_CASTELO', label: 'Viana do Castelo' },
-        { value: 'VILA_REAL', label: 'Vila Real' },
-        { value: 'BRAGANCA', label: 'Bragança' },
-        { value: 'GUARDA', label: 'Guarda' },
-        { value: 'CASTELO_BRANCO', label: 'Castelo Branco' },
-        { value: 'VISEU', label: 'Viseu' },
-        { value: 'PORTALEGRE', label: 'Portalegre' }
+        { value: 'CENTRO_ESPERANCA_SOLIDARIA', label: 'Centro Esperança Solidária' },
+        { value: 'NUCLEO_DE_APOIO_COMUNITARIO', label: 'Núcleo de Apoio Comunitário' },
+        { value: 'CASA_DA_BONDADE', label: 'Casa da Bondade' },
+        { value: 'PONTES_DA_COMPAIXAO', label: 'Pontes da Compaixão' },
+        { value: 'INSTITUTO_CORACOES_UNIDOS', label: 'Instituto Corações Unidos' }
     ];
 
     const [formData, setFormData] = useState({
@@ -57,7 +45,7 @@ function Donate() {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, userId } = useContext(AuthContext);
     const { createProduct } = useContext(ProductsContext);
 
     const handleChange = (e) => {
@@ -94,7 +82,7 @@ function Donate() {
 
         try {
             setLoading(true);
-            await createProduct(formData); // Envia a string diretamente
+            await createProduct(formData, userId); // Pass userId to associate with creator
             setSuccess(true);
             setTimeout(() => navigate('/donations'), 2000);
         } catch (err) {

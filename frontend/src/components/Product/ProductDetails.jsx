@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ProductsContext from '../../products/ProductsContext';
+import AuthContext from '../../auth/AuthContext';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { MapPinIcon } from '@heroicons/react/24/outline';
@@ -13,27 +14,29 @@ function ProductDetails() {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
     const { getProductById, updateProductState } = useContext(ProductsContext);
+    const { userId } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchProduct = async () => {
             try {
                 const data = await getProductById(id);
                 setProduct(data);
-            } catch (error) {
+            } catch (fetchError) {
+                console.error('Error fetching product:', fetchError);
                 setError('Falha ao carregar produto');
             } finally {
                 setLoading(false);
             }
         };
         fetchProduct();
-    }, [id]);
+    }, [id, getProductById]);
 
     const handleItem = async () => {
         setLoading(true);
         setError(null);
         
         try {
-            const result = await updateProductState(id, "PROCESSANDO");
+            const result = await updateProductState(id, "PROCESSANDO", userId);
             if (result) {
                 setSuccess(true);
                 setTimeout(() => navigate('/donations'), 2000);
@@ -129,9 +132,29 @@ function ProductDetails() {
                                 </div>
 
                                 {/* Description */}
-                                <div className="mb-8">
+                                <div className="mb-6">
                                     <h2 className="text-lg font-semibold mb-2">Descrição</h2>
                                     <p className="text-gray-700 whitespace-pre-line">{product.description}</p>
+                                </div>
+                                
+                                {/* User Information */}
+                                <div className="mb-8">
+                                    <h2 className="text-lg font-semibold mb-2">Informações do Produto</h2>
+                                    {product.createdByUserName && (
+                                        <p className="text-sm text-gray-600 mb-2">
+                                            <span className="font-medium">Doado por:</span> {product.createdByUserName}
+                                        </p>
+                                    )}
+                                    
+                                    {product.processingUserName && (
+                                        <p className="text-sm text-gray-600 mb-2">
+                                            <span className="font-medium">Em processamento por:</span> {product.processingUserName}
+                                        </p>
+                                    )}
+                                    
+                                    {!product.createdByUserName && !product.processingUserName && (
+                                        <p className="text-sm text-gray-500">Informações do usuário não disponíveis</p>
+                                    )}
                                 </div>
 
                                 {/* Action Buttons */}

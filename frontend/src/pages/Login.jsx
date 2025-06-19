@@ -34,7 +34,8 @@ function Login() {
             }else {
                 setError('Credenciais inválidas');
             }
-        }catch(err) {
+        }catch(loginErr) {
+            console.error('Login error:', loginErr);
             setError('Erro ao fazer login. Tente novamente.');
         }finally {
             setIsLoading(false);

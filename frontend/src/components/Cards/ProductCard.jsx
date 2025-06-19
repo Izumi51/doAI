@@ -36,7 +36,20 @@ function ProductCard({ product, onClick }) {
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-600 mb-4 line-clamp-2 flex-grow text-sm lg:text-base">{product.description}</p>
+                <p className="text-gray-600 mb-2 line-clamp-2 flex-grow text-sm lg:text-base">{product.description}</p>
+                
+                {/* User Information */}
+                {product.createdByUserName && (
+                    <p className="text-xs text-gray-500 mb-2">
+                        Doado por: <span className="font-medium">{product.createdByUserName}</span>
+                    </p>
+                )}
+                
+                {product.processingUserName && (
+                    <p className="text-xs text-gray-500 mb-2">
+                        Em processamento por: <span className="font-medium">{product.processingUserName}</span>
+                    </p>
+                )}
 
                 <div className="flex justify-between items-center mb-4">
                     {/* Category */}
