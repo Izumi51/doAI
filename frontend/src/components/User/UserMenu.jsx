@@ -2,8 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { 
-    UserIcon, 
-    Cog6ToothIcon, 
+    UserIcon,  
     ArrowRightOnRectangleIcon 
 } from "@heroicons/react/24/outline";
 
@@ -40,15 +39,7 @@ function UserMenu({ user, logout }) {
                 aria-expanded={isMenuOpen}
                 aria-label="Menu do usuário"
             >
-                {user?.photo ? (
-                    <img 
-                        src={user.photo} 
-                        alt="Foto do usuário" 
-                        className="h-8 w-8 rounded-full object-cover"
-                    />
-                ) : (
-                    <UserIcon className="h-6 w-6" />
-                )}
+                <UserIcon className="h-6 w-6" />
             </button>
 
             {isMenuOpen && (
@@ -60,14 +51,6 @@ function UserMenu({ user, logout }) {
                     >
                         <UserIcon className="h-4 w-4 mr-2" />
                         Perfil
-                    </NavLink>
-                    <NavLink
-                        to="/settings"
-                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700"
-                        onClick={() => setIsMenuOpen(false)}
-                    >
-                        <Cog6ToothIcon className="h-4 w-4 mr-2" />
-                        Configurações
                     </NavLink>
                     <button
                         onClick={handleLogout}

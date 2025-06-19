@@ -1,11 +1,15 @@
 package com.doAI.backend.controller;
 
 import com.doAI.backend.dto.LoginRequestDTO;
+import com.doAI.backend.dto.OtpRequestDTO;
+import com.doAI.backend.dto.OtpVerificationDTO;
+import com.doAI.backend.dto.PasswordResetDTO;
 import com.doAI.backend.dto.RegisterRequestDTO;
 import com.doAI.backend.dto.ResponseDTO;
 import com.doAI.backend.infra.security.TokenService;
 import com.doAI.backend.model.User;
 import com.doAI.backend.repository.UserRepository;
+import com.doAI.backend.service.OtpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +28,7 @@ public class AuthController {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
+    private final OtpService otpService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO body) {
@@ -42,7 +47,7 @@ public class AuthController {
             }
             
             return ResponseEntity.badRequest().body(Map.of("message", "Email ou senha inválidos"));
-        } catch (Exception e) {
+        } catch(Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", "Erro ao fazer login"));
         }
     }
@@ -66,8 +71,59 @@ public class AuthController {
 
             String token = this.tokenService.generateToken(newUser);
             return ResponseEntity.ok(new ResponseDTO(newUser.getName(), token, newUser.getIdUser()));
-        } catch (Exception e) {
+        } catch(Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", "Erro ao criar usuário"));
+        }
+    }
+
+    @PostMapping("/otp/request")
+    public ResponseEntity<?> requestOtp(@RequestBody OtpRequestDTO body) {
+        try {
+            String result = otpService.generateAndSendOtp(body.email());
+            return ResponseEntity.ok(Map.of("message", result));
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Failed to send OTP: " + e.getMessage()));
+        }
+    }
+
+    @PostMapping("/otp/verify")
+    public ResponseEntity<?> verifyOtp(@RequestBody OtpVerificationDTO body) {
+        try {
+            boolean isValid = otpService.verifyOtp(body.email(), body.otp());
+            
+            if (isValid) {
+                return ResponseEntity.ok(Map.of("message", "OTP verified successfully", "valid", true));
+            } else {
+                return ResponseEntity.badRequest().body(Map.of("message", "Invalid or expired OTP", "valid", false));
+            }
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Error verifying OTP: " + e.getMessage(), "valid", false));
+        }
+    }
+
+    @PostMapping("/password/reset")
+    public ResponseEntity<?> resetPassword(@RequestBody PasswordResetDTO body) {
+        try {
+            // Verify and consume the OTP (marks it as used)
+            boolean isValid = otpService.verifyAndConsumeOtp(body.email(), body.otp());
+
+            if (isValid) {
+                Optional<User> userOpt = repository.findByEmail(body.email());
+
+                if (userOpt.isEmpty()) {
+                    return ResponseEntity.badRequest().body(Map.of("message", "Usuário não encontrado"));
+                }
+
+                User user = userOpt.get();
+                user.setPassword(passwordEncoder.encode(body.newPassword()));
+                repository.save(user);
+
+                return ResponseEntity.ok(Map.of("message", "Password reset successful"));
+            } else {
+                return ResponseEntity.badRequest().body(Map.of("message", "Invalid or expired OTP"));
+            }
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Error resetting password: " + e.getMessage()));
         }
     }
 }

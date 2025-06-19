@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router';
 import AuthContext from '../auth/AuthContext';
 import Logo from '../assets/doAi.png';
 import Footer from '../components/Footer/Footer';
@@ -166,14 +166,13 @@ function Login() {
                         {isLoading ? 'Carregando...' : 'Entrar'}
                     </button>
 
-                    {/* Forgot Password
-                    <button 
-                        type="button" 
-                        onClick={handleClickOpen} 
+                    {/* Forgot Password */}
+                    <Link 
+                        to="/forgot-password"
                         className="text-sm text-blue-600 hover:text-blue-800 hover:underline text-center"
                     >
                         Esqueceu sua senha?
-                    </button> */}
+                    </Link>
                 </form>
 
                 {/* Divider */}

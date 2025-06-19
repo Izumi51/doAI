@@ -17,6 +17,8 @@ import NotFound from './pages/NotFound.jsx'
 import ProductDetails from './components/Product/ProductDetails.jsx'
 import ProductsProvider from './products/ProductsProvider.jsx'
 import User from './pages/User.jsx'
+import OtpDemo from './pages/OtpDemo.jsx'
+import ForgotPassword from './pages/ForgotPassword.jsx'
 
 const root = document.getElementById('root')
 
@@ -37,6 +39,11 @@ const router = createBrowserRouter([
     },
 
     {
+        path: "/forgot-password",
+        element: (<> <ScrollRestoration /> <ForgotPassword /> </>)
+    },
+
+    {
         path: "/donations",
         element: (<> <ScrollRestoration /> <Donations /> </>)
     },
@@ -48,12 +55,17 @@ const router = createBrowserRouter([
 
     {
         path: "/products/:id",
-        element: <ProductDetails />
+        element: (<> <ScrollRestoration /><ProductDetails /> </>)
     },
 
     {
         path: "/profile",
-        element: <User />
+        element: (<> <ScrollRestoration /><User /> </>)
+    },
+    
+    {
+        path: "/demo",
+        element: (<> <ScrollRestoration /><OtpDemo /> </>)
     },
 
     { /* Not Found */

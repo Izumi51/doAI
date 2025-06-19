@@ -37,6 +37,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                             .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/auth/otp/request").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/auth/otp/verify").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/auth/password/reset").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/products").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/products/{id}").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/products/created-by/**").authenticated()

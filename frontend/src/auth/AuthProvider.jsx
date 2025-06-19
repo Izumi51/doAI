@@ -34,7 +34,6 @@ const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
             return { success: true };
         }catch (loginError) {
-            console.error('Login error:', loginError);
             localStorage.removeItem('token');
             localStorage.removeItem('userName');
             localStorage.removeItem('userId');

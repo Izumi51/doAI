@@ -29,7 +29,7 @@ public class TokenService {
                     .sign(algorithm);
 
 
-        } catch (JWTCreationException e) {
+        } catch(JWTCreationException e) {
             throw new RuntimeException("Error while authenticating \n" + e);
         }
     }
@@ -43,7 +43,7 @@ public class TokenService {
                     .build()
                     .verify(token)
                     .getSubject();
-        } catch (JWTVerificationException e) {
+        } catch(JWTVerificationException e) {
             return null;
         }
     }

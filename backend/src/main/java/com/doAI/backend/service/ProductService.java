@@ -61,21 +61,6 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-
-//    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
-//        // Get the authenticated user from SecurityContext
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication.getPrincipal() == null) {
-//            throw new RuntimeException("User must be authenticated to create a product");
-//        }
-//
-//        User authenticatedUser = (User) authentication.getPrincipal();
-//
-//        Product product = new Product(productRequestDTO, authenticatedUser);
-//        Product savedProduct = productRepository.save(product);
-//        return new ProductResponseDTO(savedProduct);
-//    }
-
     public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO, UUID userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
