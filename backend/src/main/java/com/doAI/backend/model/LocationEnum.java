@@ -1,23 +1,9 @@
 package com.doAI.backend.model;
 
 public enum LocationEnum {
-    LISBON,
-    PORTO,
-    BRAGA,
-    COIMBRA,
-    FARO,
-    AVEIRO,
-    SETUBAL,
-    LEIRIA,
-    SANTAREM,
-    EVORA,
-    BEJA,
-    VIANA_DO_CASTELO,
-    VILA_REAL,
-    BRAGANCA,
-    GUARDA,
-    CASTELO_BRANCO,
-    VISEU,
-    PORTALEGRE
+    CENTRO_ESPERANCA_SOLIDARIA,
+    NUCLEO_DE_APOIO_COMUNITARIO,
+    CASA_DA_BONDADE,
+    PONTES_DA_COMPAIXAO,
+    INSTITUTO_CORACOES_UNIDOS
 }
-

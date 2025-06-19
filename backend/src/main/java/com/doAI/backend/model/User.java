@@ -3,6 +3,8 @@ package com.doAI.backend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Table(name = "users")
 @Entity(name = "users")
 @Getter
@@ -13,7 +15,7 @@ import lombok.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String idUser;
+    private UUID idUser;
 
     @Column(nullable = false)
     private String name;

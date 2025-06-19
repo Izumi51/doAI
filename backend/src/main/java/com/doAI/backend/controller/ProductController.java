@@ -36,8 +36,11 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponseDTO> createProduct(@RequestBody ProductRequestDTO productRequestDTO) {
-        ProductResponseDTO createdProduct = productService.createProduct(productRequestDTO);
+    public ResponseEntity<ProductResponseDTO> createProduct(
+            @RequestBody ProductRequestDTO productRequestDTO,
+            @RequestParam(name = "userId", required = false) UUID userId) {
+        ProductResponseDTO createdProduct;
+        createdProduct = productService.createProduct(productRequestDTO, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 
@@ -52,8 +55,15 @@ public class ProductController {
     @PutMapping("/{id}/state")
     public ResponseEntity<ProductResponseDTO> updateProductState(
             @PathVariable UUID id,
-            @RequestBody ProductStateUpdateDTO stateUpdateDTO) {
-        ProductResponseDTO updatedProduct = productService.updateProductState(id, stateUpdateDTO);
+            @RequestBody ProductStateUpdateDTO stateUpdateDTO,
+            @RequestParam(name = "userId", required = false) UUID userId) {
+
+        ProductResponseDTO updatedProduct;
+        if (userId != null) {
+            updatedProduct = productService.updateProductState(id, stateUpdateDTO, userId);
+        } else {
+            updatedProduct = productService.updateProductState(id, stateUpdateDTO);
+        }
         return ResponseEntity.ok(updatedProduct);
     }
 
@@ -61,5 +71,17 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/created-by/{userId}")
+    public ResponseEntity<List<ProductResponseDTO>> getProductsCreatedByUser(@PathVariable UUID userId) {
+        List<ProductResponseDTO> products = productService.getProductsCreatedByUser(userId);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/processing-by/{userId}")
+    public ResponseEntity<List<ProductResponseDTO>> getProductsByProcessingUser(@PathVariable UUID userId) {
+        List<ProductResponseDTO> products = productService.getProductsByProcessingUser(userId);
+        return ResponseEntity.ok(products);
     }
 }

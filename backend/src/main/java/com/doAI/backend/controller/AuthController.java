@@ -38,7 +38,7 @@ public class AuthController {
             
             if(passwordEncoder.matches(body.password(), user.getPassword())) {
                 String token = this.tokenService.generateToken(user);
-                return ResponseEntity.ok(new ResponseDTO(user.getName(), token));
+                return ResponseEntity.ok(new ResponseDTO(user.getName(), token, user.getIdUser()));
             }
             
             return ResponseEntity.badRequest().body(Map.of("message", "Email ou senha inválidos"));
@@ -65,7 +65,7 @@ public class AuthController {
             this.repository.save(newUser);
 
             String token = this.tokenService.generateToken(newUser);
-            return ResponseEntity.ok(new ResponseDTO(newUser.getName(), token));
+            return ResponseEntity.ok(new ResponseDTO(newUser.getName(), token, newUser.getIdUser()));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", "Erro ao criar usuário"));
         }

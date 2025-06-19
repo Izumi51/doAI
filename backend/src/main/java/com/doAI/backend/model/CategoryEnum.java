@@ -5,5 +5,6 @@ public enum CategoryEnum {
     Roupas,
     Livros,
     Brinquedos,
+    Móveis,
     Esportes;
 }

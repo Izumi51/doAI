@@ -43,7 +43,17 @@ public class Product {
     @JoinColumn(name = "location_id", nullable = false)
     private ProductLocation location;
 
-    public Product(ProductRequestDTO data) {
+    // User who created the product
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by_user_id", nullable = false)
+    private User createdBy;
+
+    // User who updated the product to PROCESSANDO state
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "processing_user_id", nullable = true)
+    private User processingUser;
+
+    public Product(ProductRequestDTO data, User createdBy) {
         this.description = data.description();
         this.condition = data.condition();
         this.image = data.image();
@@ -51,5 +61,6 @@ public class Product {
         this.category = data.category();
         this.state = ProductStateEnum.DISPONIVEL; // Default state
         this.location = new ProductLocation(null, data.location().location());
+        this.createdBy = createdBy;
     }
 }
