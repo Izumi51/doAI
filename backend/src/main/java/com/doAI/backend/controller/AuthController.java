@@ -10,6 +10,12 @@ import com.doAI.backend.infra.security.TokenService;
 import com.doAI.backend.model.User;
 import com.doAI.backend.repository.UserRepository;
 import com.doAI.backend.service.OtpService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,12 +30,34 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Tag(name = "Autenticação", description = "Endpoints para autenticação de usuários, registro e recuperação de senha")
 public class AuthController {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
     private final OtpService otpService;
 
+    @Operation(
+        summary = "Realizar login",
+        description = "Autentica um usuário com email e senha. Retorna um token JWT em caso de sucesso."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Login realizado com sucesso",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ResponseDTO.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Credenciais inválidas ou erro no login",
+            content = @Content(
+                mediaType = "application/json"
+            )
+        )
+    })
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO body) {
         try {
@@ -52,6 +80,27 @@ public class AuthController {
         }
     }
 
+    @Operation(
+        summary = "Registrar novo usuário",
+        description = "Cria uma nova conta de usuário com email, nome e senha. Retorna um token JWT em caso de sucesso."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Usuário registrado com sucesso",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ResponseDTO.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Email já está em uso ou erro no registro",
+            content = @Content(
+                mediaType = "application/json"
+            )
+        )
+    })
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDTO body) {
         // Check if user already exists
@@ -76,6 +125,26 @@ public class AuthController {
         }
     }
 
+    @Operation(
+        summary = "Solicitar código OTP",
+        description = "Gera e envia um código OTP por email para recuperação de senha."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "OTP enviado com sucesso",
+            content = @Content(
+                mediaType = "application/json"
+            )
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Erro ao enviar OTP",
+            content = @Content(
+                mediaType = "application/json"
+            )
+        )
+    })
     @PostMapping("/otp/request")
     public ResponseEntity<?> requestOtp(@RequestBody OtpRequestDTO body) {
         try {
@@ -86,6 +155,26 @@ public class AuthController {
         }
     }
 
+    @Operation(
+        summary = "Verificar código OTP",
+        description = "Verifica se o código OTP fornecido é válido para o email especificado."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "OTP verificado com sucesso",
+            content = @Content(
+                mediaType = "application/json"
+            )
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "OTP inválido ou expirado",
+            content = @Content(
+                mediaType = "application/json"
+            )
+        )
+    })
     @PostMapping("/otp/verify")
     public ResponseEntity<?> verifyOtp(@RequestBody OtpVerificationDTO body) {
         try {
@@ -101,6 +190,26 @@ public class AuthController {
         }
     }
 
+    @Operation(
+        summary = "Resetar senha",
+        description = "Reseta a senha do usuário após verificação do código OTP."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Senha resetada com sucesso",
+            content = @Content(
+                mediaType = "application/json"
+            )
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "OTP inválido, expirado ou erro ao resetar senha",
+            content = @Content(
+                mediaType = "application/json"
+            )
+        )
+    })
     @PostMapping("/password/reset")
     public ResponseEntity<?> resetPassword(@RequestBody PasswordResetDTO body) {
         try {

@@ -35,17 +35,28 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
+                            // Auth endpoints
                             .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/auth/otp/request").permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/auth/otp/verify").permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/auth/password/reset").permitAll()
+                            // Public product endpoints
                             .requestMatchers(HttpMethod.GET, "/api/products").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/products/{id}").permitAll()
+                            // Swagger/OpenAPI endpoints
+                            .requestMatchers("/swagger-ui/**").permitAll()
+                            .requestMatchers("/swagger-ui.html").permitAll()
+                            .requestMatchers("/v3/api-docs/**").permitAll()
+                            .requestMatchers("/v3/api-docs").permitAll()
+                            .requestMatchers("/swagger-resources/**").permitAll()
+                            .requestMatchers("/webjars/**").permitAll()
+                            // Protected product endpoints
                             .requestMatchers(HttpMethod.GET, "/api/products/created-by/**").authenticated()
                             .requestMatchers(HttpMethod.GET, "/api/products/processing-by/**").authenticated()
                             .requestMatchers(HttpMethod.POST, "/api/products").authenticated()
-                            .requestMatchers(HttpMethod.PUT, "/api/products/*/state").authenticated()
+                            .requestMatchers(HttpMethod.PUT, "/api/products/**").authenticated()
+                            .requestMatchers(HttpMethod.DELETE, "/api/products/**").authenticated()
                             .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
