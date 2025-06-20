@@ -112,7 +112,6 @@ doai/
 │   │   └── products/       # Contexto de Produtos
 │   ├── package.json
 │   └── tailwind.config.js
-├── OTP_SETUP.md            # Guia de Configuração OTP
 └── README.md
 ```
 
